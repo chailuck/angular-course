@@ -40,4 +40,17 @@ app.controller('ProfileController', function ($scope) {
     },
   ]
 
+
+  
+});
+
+app.filter('ThaiName', function() {
+    return function(input) {
+      console.log(input);
+      var inputArr = input.split(" ");
+      var frstName = inputArr[0];
+      var lastName = inputArr[1];
+      var nickName = inputArr[2];
+      return nickName +" " + frstName;
+    }
 });

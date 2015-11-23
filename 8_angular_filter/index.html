@@ -21,7 +21,7 @@
 
 
 <div class="container main-content">
-	<input type="text" placeholder="filter"/>
+	<input type="text" ng-model="searchText.nickname" placeholder="filter"/>
 	<table>
 		<tr>
 			<th>
@@ -36,6 +36,13 @@
 			<th>
 				Income
 			</th>
+		</tr>
+		<tr ng-repeat="profile in profiles | filter:searchText:strict">
+			<td><img src="{{profile.imageURL}}" width='50'>	</td>
+			<td>{{profile.name + " " + profile.nickname | ThaiName}}
+			</td>
+			<td>{{profile.birthdate | date:'MM/dd/yyyy'}}</td>
+			<td>{{profile.income | currency:"THB$"}}</td>
 		</tr>
 	</table>
 </div>
