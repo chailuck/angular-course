@@ -1,5 +1,6 @@
 var app = angular.module('myApp', []);
 
+/*
 app.controller('ParentController', function ($scope, $rootScope) {
 	//$scope.name = "Parent";
 	//
@@ -8,6 +9,13 @@ app.controller('ParentController', function ($scope, $rootScope) {
 	//};
 
 });
+*/
+
+app.controller('ParentController', function ($scope, $rootScope) {
+	$scope.data = {name: "Parent"};
+
+});
+
 
 app.controller('ChildController', function ($scope, $rootScope) {
 
