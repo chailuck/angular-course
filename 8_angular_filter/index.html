@@ -37,7 +37,7 @@
 				Income
 			</th>
 		</tr>
-		<tr ng-repeat="profile in profiles | filter:searchText:strict">
+		<tr ng-repeat="profile in profiles | filter:searchText:strict | orderBy: 'nickname'">
 			<td><img src="{{profile.imageURL}}" width='50'>	</td>
 			<td>{{profile.name + " " + profile.nickname | ThaiName}}
 			</td>
