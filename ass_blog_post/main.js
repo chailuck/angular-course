@@ -2,62 +2,74 @@
 var app = angular.module('myApp', []);
 
 app.controller('BlogpostController', function ($scope) {
-  $scope.blogs = [  
+  $scope.formData = {
+    postTitle:"",
+    postContent:"",
+    postAuthro:""
+  }
+
+  $scope.blogs = [
     {
         title: "Title 1",
         content: "Content 1111111111111111111111111111111111111",
-        author: "Twin PanichSombat",
+        author: "Pop1",
         postdate: new Date(1975, 3, 3),
     },
     {
         title: "Title 2",
         content: "Content 22222222222222222222222222222222222",
-        author: "Pop",
+        author: "Pop 2",
         postdate: new Date(1975, 3, 3),
     },
   ]
 	
   $scope.postSubmit = function() {
       var isError = false;
-      console.log($scope.postTitle);
-      
-     
-      if (
-        $scope.validateRequired("Title",$scope.postTitle) && 
-        $scope.validateRequired("Content",$scope.postContent) &&
-        $scope.validateRequired("Author",$scope.postAuthor)
-      ) {
-          $scope.blogs.push({
-            title: $scope.postTitle,
-            content: $scope.postContent,
-            author: $scope.postAuthor,
-            postdate: new Date(),
-          })  
+      if ($scope.validateMessage()) {
+          $scope.postMessage();
           $scope.clearData();
       }
   }
+
+  $scope.validateMessage = function () {
+      return (
+        $scope.validateRequired("Title",$scope.formData.postTitle) && 
+        $scope.validateRequired("Content",$scope.formData.postContent) &&
+        $scope.validateRequired("Author",$scope.formData.postAuthor)
+        )
+  }
+
+  $scope.postMessage = function() {
+      $scope.blogs.push({
+        title: $scope.formData.postTitle,
+        content: $scope.formData.postContent,
+        author: $scope.formData.postAuthor,
+        postdate: new Date(),
+      })  
+  }
   
   $scope.clearData = function() {
-    $scope.postTitle = "";
-    $scope.postContent = "";
-    $scope.postAuthor = "";  
+    $scope.formData.postTitle = "";
+    $scope.formData.postContent = "";
+    $scope.formData.postAuthor = "";  
   }
 
   $scope.validateRequired = function(fieldName, fieldVal) {
-      if ((fieldVal) === undefined) {
+      if ((fieldVal) === undefined || (fieldVal) === "") {
           alert(fieldName + " is required field"); 
           return false;
       } 
       return true;
   }
-
 });
 
-
 app.filter('LimitText', function() {
-    return function(input) {
-      if (input.length >= 10)
-        return input.substr(0,10) + "...";
+  return function(input) {
+    var contentLen = 10;
+    if (input != undefined) {
+      if (input.length > contentLen)
+        return input.substr(0,contentLen) + "...";
       return input;
     }
+  }
 });

@@ -23,7 +23,7 @@
 <div class="container main-content">
 	<!--<input type="text" ng-model="searchText.nickname" placeholder="filter"/>-->
 	<table  border="1">
-		<tr>
+		<tr class='tabHeader'>
 			<th>
 				Title
 			</th>
@@ -37,7 +37,7 @@
 				Date
 			</th>
 		</tr>
-		<tr ng-repeat="blog in blogs | orderBy:blog.postdate:true | limitTo:5" >
+		<tr ng-repeat="blog in blogs | orderBy:blog.postdate:true | limitTo:5" class="body">
 			<td>{{blog.title}}</td>
 			<td>{{blog.content | LimitText}}</td>
 			<td>{{blog.author}}</td>
@@ -47,38 +47,38 @@
 </div>
 
 <div class="container main-content">
-	<table>
-		<tr>
-			<th>
+	<table width='100%' class='formBody'>
+		<tr class='tabHeader'>
+			<th width='200'>
 				Post message
 			</th>
 			<th>
 			</th>
 		</tr>
 		<tr>
-			<th>
+			<th class="title">
 				Title
 			</th>
 			<th>
-				<input type="text" ng-model="postTitle" required ng-trim="true" width='100%'/>
+				<input type="text" ng-model="formData.postTitle" required ng-trim="true"/>
 			</th>
 		</tr>
 		<tr>
-			<th>
+			<th class="title">
 				Content
 			</th>
 			<th>
-				<textarea ng-model="postContent" name="string"  ng-trim="true" ng-trim="true" required ng-maxlength="300"
+				<textarea ng-model="formData.postContent" name="string"  ng-trim="true" ng-trim="true" required ng-maxlength="300"
 				 width='300'>
 				</textarea>
 			</th>
 		</tr>
 		<tr>
-			<th>
+			<th class="title">
 				Author
 			</th>
 			<th>
-				<input type="text" ng-trim="true" ng-model="postAuthor" ng-required="true" />
+				<input type="text" ng-trim="true" ng-model="formData.postAuthor" ng-required="true" />
 			</th>
 		</tr>
 		<tr>
@@ -92,6 +92,7 @@
 
 			</th>
 		</tr>
+		
 	</table>
 </div>
 <script src="../libs/angular/angular.min.js"></script>
