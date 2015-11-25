@@ -4,26 +4,43 @@ var app = angular.module('mainApp.blogList', []);
 app.controller('BlogpostController', function ($scope,$state,blogContent) {
 
   $scope.selectedBlogItem = {
+    postId:"",
     postTitle:"",
     postContent:"",
-    postAuthro:""
+    postAuthor:"",
+    postDate:""
   }
 
   $scope.formData = {
+    postId:"",
     postTitle:"",
     postContent:"",
-    postAuthro:""
-  }
+    postAuthor:"",
+    postDate:""
+  };
 
   
-$scope.blogs = blogContent.blogs;
+
+  $scope.reload = function() {
+    blogContent.getMessages().then(
+      function(data) {
+          $scope.blogs = blogContent.convertHTTPArraytoBlogs(data);
+      }
+    );
+  }
+
+  $scope.reload();
 
   $scope.postSubmit = function() {
       var isError = false;
       if ($scope.validateMessage()) {
-          $scope.postMessage();
-          $scope.clearData();
-          $state.go('mainApp');
+          $scope.formData.postDate = new Date();
+          blogContent.postMessage($scope.formData).then(function() {
+              $scope.clearData();
+              $state.go('mainApp');
+              $scope.reload();
+            }
+          );
       }
   }
 
@@ -35,14 +52,6 @@ $scope.blogs = blogContent.blogs;
         )
   }
 
-  $scope.postMessage = function() {
-    blogContent.postMessage({
-      postTitle: $scope.formData.postTitle,
-      postContent: $scope.formData.postContent,
-      postAuthor: $scope.formData.postAuthor,
-      postDate: new Date(),
-    })
-  }
   
   $scope.clearData = function() {
     $scope.formData.postTitle = "";

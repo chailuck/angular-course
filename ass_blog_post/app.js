@@ -20,33 +20,54 @@ angular.module('mainApp', [
 ]);
 
 
-angular.module('mainApp').service('blogContent', function() {
+angular.module('mainApp').service('blogContent', function(blogHTTPService) {
 
   this.selectedBlogItem = {
+    postId:"",
     postTitle:"",
     postContent:"",
-    postAuthror:"",
+    postAuthor:"",
     postDate:""
   };
 
 
-  this.blogs = [
-    {
-        postTitle: "Title 1",
-        postContent: "Content 1111111111111111111111111111111111111",
-        postAuthor: "Pop1",
-        postDate: new Date(1975, 3, 3),
-    },
-    {
-        postTitle: "Title 2",
-        postContent: "Content 22222222222222222222222222222222222",
-        postAuthor: "Pop 2",
-        postDate: new Date(1975, 3, 3),
-    },
-  ]
   
+  
+  this.getMessages = function() {
+    return blogHTTPService.fetch();
+  }
+
+  this.convertHTTPArraytoBlogs = function(data) {
+     var returnItems = [];
+     
+     angular.forEach(data.data, function(value, key){
+       returnItems.push({
+         postId: value.id,
+         postTitle: value.title,
+         postContent: value.post,
+         postAuthor: value.author,
+         postDate: value.timestamp,
+      });
+    });
+    
+    return returnItems;
+  }
+
+this.convertBlogtoHTTP = function(data) {
+    var returnItems = {
+         title: data.postTitle,
+         post: data.postContent,
+         author: data.postAuthor,
+         timestamp: data.postDate,
+    };
+    
+    return returnItems;
+  }
+
+
   this.postMessage = function(item) {
-    this.blogs.push(item);
+    //this.blogs.push(item);
+    return blogHTTPService.push(this.convertBlogtoHTTP(item));
   }
 
   this.selectMessage = function(item) {
@@ -60,15 +81,40 @@ angular.module('mainApp').service('blogContent', function() {
 
   this.clearData = function() {
     this.selectedBlogItem = {
+      postId:"",
       postTitle:"",
       postContent:"",
-      postAuthror:"",
+      postAuthor:"",
       postDate:""
     }
   }
 });
     
-angular.module('mainApp').service('blogHTTPService',function() {
+angular.module('mainApp').service('blogHTTPService',function($http) {
+    this.method = 'GET';
+    this.url = 'http://localhost:4000/blogs';
+    this.status = "";
+    this.data = "";
     
+    this.fetch = function() {
+      var code = null;
+      var response = null;
+
+      var request = $http({method: this.method, url: this.url});
+      return request;
+    }
+
+    this.push = function(data) {
+      var code = null;
+      var response = null;
+        console.log(data);
+      var request = $http({
+        method: 'POST', 
+        url: this.url, 
+        data: data 
+      });
+      return request;
+    }
+
 
 });

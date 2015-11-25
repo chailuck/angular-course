@@ -12,5 +12,4 @@ angular.module('mainApp.blogView', ['ui.router']).config([
 
 angular.module('mainApp.blogView').controller('blogViewController', function ($scope,$state,blogContent) {	
 	$scope.selectedBlogItem = blogContent.getSelectedMessage();
-  
 });

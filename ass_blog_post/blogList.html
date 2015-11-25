@@ -16,11 +16,12 @@
 				Date
 			</th>
 		</tr>
-		<tr ng-repeat="blog in blogs | orderBy:blog.postdate:true | limitTo:5" class="body" ng-click="blogListSelected(blog)">
+		<tr ng-repeat="blog in blogs | orderBy:blog.postdate:true | limitTo:35" class="body" ng-click="blogListSelected(blog)">
 			<td>{{blog.postTitle}}</td>
 			<td>{{blog.postContent | LimitText}}</td>
 			<td>{{blog.postAuthor}}</td>
-			<td>{{blog.postDate | date:'MM/dd/yyyy'}}</td>
+			<td>{{blog.postDate | date:'MM/dd/yyyy hh:mm:ss'}}</td>
+
 		</tr>
 	</table>
 </div>
