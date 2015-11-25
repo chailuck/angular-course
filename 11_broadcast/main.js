@@ -25,15 +25,9 @@ app.controller('ProfileListController', function ($scope,$rootScope) {
     },
   ];
 
-  $scope.postSubmit = function() {
-
-  }
-
 	$scope.edit = function(selectedProfile){
-		
     $rootScope.$broadcast('editedProfile', selectedProfile);
   };
-
 });
 
 app.controller('ProfileDetailController', function ($scope) {

@@ -1,7 +1,14 @@
 
-var app = angular.module('myApp', []);
+var app = angular.module('mainApp.blogList', []);
 
-app.controller('BlogpostController', function ($scope) {
+app.controller('BlogpostController', function ($scope,$state) {
+
+  $scope.selectedBlogItem = {
+    postTitle:"",
+    postContent:"",
+    postAuthro:""
+  }
+
   $scope.formData = {
     postTitle:"",
     postContent:"",
@@ -28,6 +35,7 @@ app.controller('BlogpostController', function ($scope) {
       if ($scope.validateMessage()) {
           $scope.postMessage();
           $scope.clearData();
+          $state.go('mainApp');
       }
   }
 
@@ -60,6 +68,13 @@ app.controller('BlogpostController', function ($scope) {
           return false;
       } 
       return true;
+  }
+
+  $scope.blogListSelected = function(selectedBlogItem) {
+      $scope.selectedBlogItem = selectedBlogItem;
+      console.log(selectedBlogItem);
+      console.log($scope.selectedBlogItem);
+      $state.go('mainApp.blogView');
   }
 });
 

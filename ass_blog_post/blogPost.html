@@ -1,0 +1,49 @@
+<div class="container main-content">
+	<table width='100%' class='formBody'>
+		<tr class='tabHeader'>
+			<th width='200'>
+				Post message
+			</th>
+			<th>
+			</th>
+		</tr>
+		<tr>
+			<th class="title">
+				Title
+			</th>
+			<th>
+				<input type="text" ng-model="formData.postTitle" required ng-trim="true"/>
+			</th>
+		</tr>
+		<tr>
+			<th class="title">
+				Content
+			</th>
+			<th>
+				<textarea ng-model="formData.postContent" name="string"  ng-trim="true" ng-trim="true" required ng-maxlength="300"
+				 width='300'>
+				</textarea>
+			</th>
+		</tr>
+		<tr>
+			<th class="title">
+				Author
+			</th>
+			<th>
+				<input type="text" ng-trim="true" ng-model="formData.postAuthor" ng-required="true" />
+			</th>
+		</tr>
+		<tr>
+			<th>
+				  </br></br>
+			</th>
+			<th>
+				
+				<button class="btn btn-primary" ng-click="postSubmit()">Post message
+			</button>
+
+			</th>
+		</tr>
+		
+	</table>
+</div>
