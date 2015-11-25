@@ -1,4 +1,4 @@
-<div class="container main-content">
+<div class="container main-content" ng-controller='blogViewController'>
 	<table width='100%' class='formBody'>
 		<tr class='tabHeader'>
 			<th width='200'>
@@ -12,6 +12,7 @@
 				Title
 			</th>
 			<th>
+				
 				{{selectedBlogItem.postTitle}}
 			</th>
 		</tr>
@@ -36,7 +37,7 @@
 				Date
 			</th>
 			<th>
-				{{selectedBlogItem.postDate}}
+				{{selectedBlogItem.postDate| date:'MM/dd/yyyy'}}
 			</th>
 		</tr>
 		

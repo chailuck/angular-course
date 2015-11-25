@@ -17,10 +17,10 @@
 			</th>
 		</tr>
 		<tr ng-repeat="blog in blogs | orderBy:blog.postdate:true | limitTo:5" class="body" ng-click="blogListSelected(blog)">
-			<td>{{blog.title}}</td>
-			<td>{{blog.content | LimitText}}</td>
-			<td>{{blog.author}}</td>
-			<td>{{blog.postdate | date:'MM/dd/yyyy'}}</td>
+			<td>{{blog.postTitle}}</td>
+			<td>{{blog.postContent | LimitText}}</td>
+			<td>{{blog.postAuthor}}</td>
+			<td>{{blog.postDate | date:'MM/dd/yyyy'}}</td>
 		</tr>
 	</table>
 </div>

@@ -1,7 +1,7 @@
 
 var app = angular.module('mainApp.blogList', []);
 
-app.controller('BlogpostController', function ($scope,$state) {
+app.controller('BlogpostController', function ($scope,$state,blogContent) {
 
   $scope.selectedBlogItem = {
     postTitle:"",
@@ -15,21 +15,9 @@ app.controller('BlogpostController', function ($scope,$state) {
     postAuthro:""
   }
 
-  $scope.blogs = [
-    {
-        title: "Title 1",
-        content: "Content 1111111111111111111111111111111111111",
-        author: "Pop1",
-        postdate: new Date(1975, 3, 3),
-    },
-    {
-        title: "Title 2",
-        content: "Content 22222222222222222222222222222222222",
-        author: "Pop 2",
-        postdate: new Date(1975, 3, 3),
-    },
-  ]
-	
+  
+$scope.blogs = blogContent.blogs;
+
   $scope.postSubmit = function() {
       var isError = false;
       if ($scope.validateMessage()) {
@@ -48,12 +36,12 @@ app.controller('BlogpostController', function ($scope,$state) {
   }
 
   $scope.postMessage = function() {
-      $scope.blogs.push({
-        title: $scope.formData.postTitle,
-        content: $scope.formData.postContent,
-        author: $scope.formData.postAuthor,
-        postdate: new Date(),
-      })  
+    blogContent.postMessage({
+      postTitle: $scope.formData.postTitle,
+      postContent: $scope.formData.postContent,
+      postAuthor: $scope.formData.postAuthor,
+      postDate: new Date(),
+    })
   }
   
   $scope.clearData = function() {
@@ -71,9 +59,7 @@ app.controller('BlogpostController', function ($scope,$state) {
   }
 
   $scope.blogListSelected = function(selectedBlogItem) {
-      $scope.selectedBlogItem = selectedBlogItem;
-      console.log(selectedBlogItem);
-      console.log($scope.selectedBlogItem);
+      blogContent.selectMessage(selectedBlogItem);
       $state.go('mainApp.blogView');
   }
 });
